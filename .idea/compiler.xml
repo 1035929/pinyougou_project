@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="alicom-dysms-api" />
+        <module name="AliDaYu_springboot_sms" />
+        <module name="casClient_demo01" />
+        <module name="casClient_demo02" />
+        <module name="casClient_demo03" />
+        <module name="FastDFSDemo" />
+        <module name="Freemarker_Demo" />
+        <module name="jmsDemo" />
+        <module name="pinyougou_common" />
+        <module name="pinyougou_content_interface" />
+        <module name="pinyougou_content_service" />
+        <module name="pinyougou_dao" />
+        <module name="pinyougou_manager_web" />
+        <module name="pinyougou_page_interface" />
+        <module name="pinyougou_page_service" />
+        <module name="pinyougou_page_web" />
+        <module name="pinyougou_pojo" />
+        <module name="pinyougou_portal_web" />
+        <module name="pinyougou_search_interface" />
+        <module name="pinyougou_search_service" />
+        <module name="pinyougou_search_web" />
+        <module name="pinyougou_sellergoods_interface" />
+        <module name="pinyougou_sellergoods_service" />
+        <module name="pinyougou_shop_web" />
+        <module name="pinyougou_solr_util" />
+        <module name="pinyougou_user_interface" />
+        <module name="pinyougou_user_service" />
+        <module name="pinyougou_user_web" />
+        <module name="Spring-Data-Redis" />
+        <module name="Spring-Data-Solr" />
+        <module name="spring_boot" />
+        <module name="spring_boot2" />
+        <module name="springboot_mybatis" />
+        <module name="springBootDemo" />
+        <module name="SpringJms_consumer" />
+        <module name="SpringJms_producer" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="maven-archiver (1)" target="1.5" />
+      <module name="maven-archiver (10)" target="1.5" />
+      <module name="maven-archiver (11)" target="1.5" />
+      <module name="maven-archiver (12)" target="1.5" />
+      <module name="maven-archiver (13)" target="1.5" />
+      <module name="maven-archiver (2)" target="1.5" />
+      <module name="maven-archiver (3)" target="1.5" />
+      <module name="maven-archiver (4)" target="1.5" />
+      <module name="maven-archiver (5)" target="1.5" />
+      <module name="maven-archiver (6)" target="1.5" />
+      <module name="maven-archiver (7)" target="1.5" />
+      <module name="maven-archiver (8)" target="1.5" />
+      <module name="maven-archiver (9)" target="1.5" />
+      <module name="pinyougou_project" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="spring_boot2" options="" />
+    </option>
+  </component>
+</project>

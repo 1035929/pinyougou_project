@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+    http://www.springframework.org/schema/security
+    http://www.springframework.org/schema/security/spring-security.xsd">
+
+
+    <!-- 设置放行资源
+        pattern表示放行资源的路径地址，security=“none”表示不进行拦截
+        -->
+    <http pattern="/*.html" security="none"></http>
+    <http pattern="/css/**" security="none"></http>
+    <http pattern="/img/**" security="none"></http>
+    <http pattern="/js/**" security="none"></http>
+    <http pattern="/plugins/**" security="none"></http>
+    <http pattern="/seller/add.do" security="none"></http>
+
+    <!--页面拦截规则
+    use-expressions表示是否使用spel表达式，默认等于true表示使用，false不适用
+    -->
+    <http use-expressions="false">
+        <!--拦截路径标签，pattern表示路径属性，/**表示拦截当前根目录下以及子目录下的所有资源
+            access表示访问的权限，只能是USER角色的才能访问，必须写前缀ROLE_
+            如果access直接等于ROLE_ADMIN的话，必须在设置不适用spel表达式才可以
+          -->
+        <intercept-url pattern="/**" access="ROLE_SELLER"/>
+        <!--系统自动生成登录页面，开启表单登录
+            如果当前标签中没有任何属性，则会默认使用系统生成的登录页面
+            login-page表示自定义的登录页,default-target-url表示最终要跳转的路径地址
+            authentication-failure-url表示认证失败跳转的地址
+            login-processing-url表示登录访问地址，默认也是/login
+            always-use-default-target表示永远访问默认目标地址，true表示是，false表示否，默认等于false
+
+         -->
+        <form-login login-processing-url="/login" login-page="/shoplogin.html" default-target-url="/admin/index.html"
+                    username-parameter="username" password-parameter="password"
+                    authentication-failure-url="/shoplogin.html" always-use-default-target="true"/>
+        <logout logout-url="/logout" logout-success-url="/shoplogin.html"></logout>
+
+        <!--关闭跨站请求伪造  -->
+        <csrf disabled="true"/>
+        <headers>
+            <frame-options policy="SAMEORIGIN"></frame-options>
+        </headers>
+
+        <logout logout-url="/logout" logout-success-url="/shoplogin.html" invalidate-session="true"></logout>
+    </http>
+    <!--认证管理器  -->
+    <authentication-manager>
+        <authentication-provider user-service-ref="userDetailsService">
+
+            <!--&lt;!&ndash;在配置文件中设置用户名和密码以及角色  &ndash;&gt;
+            <user-service>
+                <user name="admin" password="123" authorities="ROLE_ADMIN"/>
+            </user-service>-->
+            <password-encoder ref="passwordEncoder"></password-encoder>
+        </authentication-provider>
+    </authentication-manager>
+
+
+    <beans:bean id="userDetailsService" class="com.pinyougou.shop.service.UserDetailsServiceImpl">
+        <beans:property name="sellerService" ref="sellerService"></beans:property>
+    </beans:bean>
+
+
+    <!--配置密码加密-->
+    <beans:bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></beans:bean>
+    <!--对userDeatilService接口进行管理  -->
+<!--
+    <beans:bean id="userDetailsService" class="com.pinyougou.shop.service.UserDetailsServiceImpl">
+        &lt;!&ndash; 对sellerService接口进行注入操作 &ndash;&gt;
+        <beans:property name="sellerService" ref="sellerService"></beans:property>
+    </beans:bean>
+-->
+
+    <!--调用sellerService接口  -->
+    <dubbo:application name="pinyougou_shop_web" />
+    <dubbo:registry address="zookeeper://192.168.25.128:2181"/>
+    <dubbo:reference id="sellerService" interface="com.pinyougou.sellergoods.service.SellerService"></dubbo:reference>
+
+
+
+</beans:beans>

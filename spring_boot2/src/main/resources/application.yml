@@ -1,0 +1,32 @@
+server:
+  port: 8082
+
+name: zhangsan
+
+
+#对象配置
+person:
+  name: zhangsan
+  age: 17
+  address: wuhan
+#行内配置
+person2: {name: lisi,age: 18, address: shanghai}
+
+city: [wuhan,shanghai,beijing,guangzhou]
+
+#集合配置
+person3:
+  - name: zhangsan
+    age: 18
+    address: wuhan
+  - name: lisi
+    age: 19
+    address: shanghai
+
+student: [{name: zhangsan,age: 18,address: wuhan},{name: lisi,age: 19,address: shanghai}]
+
+person4: [ zhangsan, lisi]
+
+map:
+  key1: value1
+  key2: value2

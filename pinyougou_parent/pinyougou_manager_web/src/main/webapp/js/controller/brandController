@@ -1,0 +1,90 @@
+app.controller('brandController',function ($scope,$controller,brandService) {
+
+    /*$scope:$scope表示把父类控制器$scope作用域的变量给子类的$scope作用域的变量*/
+    $controller('baseController',{$scope:$scope});
+
+
+    //查询全部
+    $scope.findAll = function () {
+        brandService.findAll().success(
+            function (response) {
+                $scope.list = response;
+            });
+
+    };
+
+    //条件查询
+
+
+    //分页
+    $scope.findByPage=function (page,size) {
+        brandService.findByPage(page,size).success(
+            function (response) {
+                $scope.list=response.rows;
+                $scope.paginationConf.totalItems=response.total;//更新总记录数
+            }
+        );
+    };
+    //新增，修改
+    $scope.save=function () {
+        var methodName;
+        if ($scope.entity.id!=null){
+            methodName="updateBrand"
+        } else {
+            methodName="insertBrand";
+        }
+
+        brandService.save($scope.entity,methodName).success(
+            function (response) {
+                if (response.success) {
+                    $scope.reloadList();
+                }else {
+                    alert(response.message);
+                }
+            }
+        );
+    };
+    $scope.findOne=function (id) {
+        brandService.findOne(id).success(
+            function (response) {
+                $scope.entity=response
+            }
+        );
+    };
+
+
+    //删除
+    $scope.delete=function () {
+        if ($scope.selectIds.length==0){
+            alert("至少选中一行")
+        }else{
+            if (confirm("你确定要删除吗？")) {
+                brandService.delete($scope.selectIds).success(
+                    function (response) {
+                        if (response.success) {
+                            $scope.reloadList();
+                            $scope.selectIds=[];
+                        }else {
+                            alert(response.message);
+                        }
+                    }
+                )
+            }
+
+        }
+
+    };
+    //条件查询
+    $scope.searchEntity={};//必须初始化该变量，否则会报400异常
+    $scope.search=function(page,size){
+        //执行post请求
+        brandService.search(page,size,$scope.searchEntity).success(
+            function (response) {
+                $scope.list=response.rows;
+                $scope.paginationConf.totalItems=response.total;
+            }
+        )
+    }
+
+
+});

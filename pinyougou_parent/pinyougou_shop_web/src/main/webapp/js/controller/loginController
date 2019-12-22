@@ -1,0 +1,10 @@
+app.controller('loginController',function ($scope,loginService) {
+    $scope.showName=function(){
+        loginService.userLogin().success(
+            function (response) {
+                $scope.loginName=response.loginName;
+            }
+        )
+    }
+
+})
